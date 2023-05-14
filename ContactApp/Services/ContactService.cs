@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ContactApp.Services
 {
+    // contact service which is used to handle getting users from the database
     public class ContactService : IContactService
     {
         private readonly ContactAppDbContext _context;

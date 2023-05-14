@@ -2,6 +2,7 @@
 
 namespace ContactApp.Services
 {
+    // interface for our contact service which is used to handle getting users from the database
     public interface IContactService
     {
         Task<List<User>> GetAllUsers();

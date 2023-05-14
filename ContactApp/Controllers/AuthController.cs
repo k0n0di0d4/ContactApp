@@ -11,16 +11,18 @@ using ContactApp.Services;
 
 namespace ContactApp.Controllers
 {
+    // A controller which holds methods for authentication, authorization and user control
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
     {
         private readonly ContactAppDbContext _context;
-        //public static User user = new User();
+        
         private readonly IConfiguration _configuration;
 
         private readonly IContactService _contactService;
 
+        // Constructor
         public AuthController(ContactAppDbContext context, IConfiguration configuration, IContactService contactService)
         {
             _context = context;
@@ -28,6 +30,7 @@ namespace ContactApp.Controllers
             _contactService = contactService;
         }
 
+        // register and add user with hashed password, for extra protection
         [HttpPost("register")]
         public async Task<ActionResult<User>> Register(User request)
         {
@@ -53,10 +56,11 @@ namespace ContactApp.Controllers
 
         }
 
+        // login using JWT token
         [HttpPost("login")]
         public async Task<ActionResult<User>> Login(UserRequest request)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == request.Username);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
 
             if(user == null)
             {
@@ -73,13 +77,16 @@ namespace ContactApp.Controllers
 
         }
 
-        [HttpGet("/getAllUsers")]
+
+        // get call that returns all users in the database
+        [HttpGet("getAllUsers")]
         public async Task<ActionResult<List<User>>> GetAllUsers()
         {
             return await _contactService.GetAllUsers();
         }
 
-        [HttpGet("/getSingleUser/{id}")]
+        // get single user based on his id
+        [HttpGet("getSingleUser/{id}")]
         public async Task<ActionResult<User>> getSingleUser(int id)
         {
             var result = _contactService.GetSingleUser(id);

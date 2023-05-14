@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ContactApp.Db
 {
+    // database context which is used to configure database
     public class ContactAppDbContext : DbContext
     {
         public ContactAppDbContext(DbContextOptions<ContactAppDbContext> options) : base(options) { }
